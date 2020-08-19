@@ -15,7 +15,7 @@ int main()
 	finish = clock();
 	printf("The sum of the largest subsequences is %d\n", Max_sum);
 	printf("Program running time is %f\n", (double)(finish - start));   //  count the program running time  
-	return 0;                                                           //    in my computer, it's about 83 ms.
+	return 0;                                                           //    in my computer, it's about 147 ms.
 }
 int MaxSubsequenceSum(int a[], int N)
 {
