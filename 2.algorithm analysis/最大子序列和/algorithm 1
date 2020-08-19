@@ -27,7 +27,7 @@ int MaxSubsequenceSum(int a[], int N)
 			ThisSum = a[j];
 			if (ThisSum > MaxSum)
 				MaxSum = ThisSum;
-		}
 	}
+ }
 	return MaxSum;
 }
