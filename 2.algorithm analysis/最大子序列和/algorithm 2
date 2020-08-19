@@ -20,6 +20,8 @@ int main()  {
 	Max_sum = MaxSubSum(ar, 0, N-1);
 	finish = clock();
 	printf("The sum of the largest subsequences is %d\n", Max_sum);
+	
+	//   in my computer , it costs 4 ms.
 	printf("Program running time is %f\n", (double)(finish - start));
 	return 0;
 }
