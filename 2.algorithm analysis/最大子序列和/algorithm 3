@@ -1,1 +1,41 @@
+//   这个算法的运行速度很快
 
+#include <stdio.h>
+#include <stdlib.h>
+
+//  因为time.h头文件里的clock的最大精度是毫秒，精度不够
+//  在windows系统里，可以用QueryPerformanceCounter函数
+#include <windows.h>
+#define M 10000
+int MaxSubsequenceSum(int a[],int N);
+int main() {
+	LARGE_INTEGER time_start;
+	LARGE_INTEGER time_over;
+	LARGE_INTEGER tc;
+	int ar[M], MaxSum;
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < M; i++)
+		ar[i] = rand() % (2 * M) - M;
+	QueryPerformanceFrequency(&tc);
+	QueryPerformanceCounter(&time_start);
+	MaxSum = MaxSubsequenceSum(ar, M);
+	QueryPerformanceCounter(&time_over);
+	printf("The sum of the lagest subsquences is %d\n", MaxSum);
+    
+    //   在我的电脑，完成这个程序仅仅需要74微秒！
+	printf("Progrm running time is %lf us\n",
+		   1000000*(double)(time_over.QuadPart - time_start.QuadPart) / (double)tc.QuadPart);
+	return 0;
+}
+int MaxSubsequenceSum(int a[], int N) {
+	int ThisSum, MaxSum;
+	ThisSum = MaxSum = 0;
+	for (int i = 0; i < N; i++) {
+		ThisSum += a[i];
+		if (ThisSum > MaxSum)
+			MaxSum = ThisSum;
+		else if (ThisSum < 0)
+			ThisSum = 0;
+	}
+	return MaxSum;
+}
