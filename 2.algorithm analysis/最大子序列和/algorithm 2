@@ -1,0 +1,70 @@
+//  算法二采用递归调用
+//  简单归结成三种情况：第一种是只在左部分，第二种是只在右部分，还有一种是左右都有（这时必然包括数组中间元素，不能间断）
+
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#define M 10000
+#define N 100
+int Max(int x, int y, int z);
+int MaxSubSum(int a[], int Left, int Right);
+int main()  {
+	int ar[M], Max_sum;
+	clock_t start, finish;
+	start = clock();
+  
+  //   在-10000到10000内随机选取10000个数
+	srand((unsigned)time(NULL));
+	for (int k = 0; k < N; k++)
+		ar[N] = rand() % (2 * M) - M;
+	Max_sum = MaxSubSum(ar, 0, N-1);
+	finish = clock();
+	printf("The sum of the largest subsequences is %d\n", Max_sum);
+	printf("Program running time is %f\n", (double)(finish - start));
+	return 0;
+}
+int MaxSubSum(int a[], int Left, int Right) {
+	int center;
+	int Maxleftsum, Maxrightsum;
+	int Thissum1, Thissum2,  Maxsum1, Maxsum2;
+	if (Left == Right)
+		if (a[Left] > 0)
+			return a[Left];
+		else
+			return 0;
+	center = (Left + Right) / 2;
+  
+  //  将数组序列不断细分成左半部分和右半部分
+  //  再通过递归出最后left=right时的值，然后返回前一个递归，最终得出单个左右部分的最大子序列和
+	Maxleftsum = MaxSubSum(a, Left, center);
+	Maxrightsum = MaxSubSum(a, center + 1, Right);
+  
+  //
+	Thissum1 = 0;
+	Maxsum1 = 0;
+	for (int i = center; i >= Left; i--) {
+		Thissum1 += a[i];
+		if (Thissum1 > Maxsum1)
+			Maxsum1 = Thissum1;
+	}
+	Thissum2 = 0;
+	Maxsum2 = 0;
+	for (int j = center + 1; j <= Right; j++) {
+		Thissum2 += a[j];
+		if (Thissum2 > Maxsum2)
+			Maxsum2 = Thissum2;
+	}
+	return Max(Maxleftsum, Maxrightsum, (Maxsum1 + Maxsum2));
+}
+
+//  输出三个数的最大值
+int Max(int x, int y, int z) {
+	int max;
+	if (x > y)
+		max = x;
+	else 
+		max = y;
+	if (max < z)
+		max = z;
+	return max;
+}
