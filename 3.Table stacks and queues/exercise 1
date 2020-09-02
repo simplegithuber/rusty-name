@@ -13,7 +13,7 @@ struct LNode L;
                                                       //  creat a linked list
 List creatlist() {  
 	List ptrl_head = (List)malloc(sizeof(L));
-	ptrl_head->Next = NULL;                           //   after creating a new node, should make it point to NULL
+	ptrl_head->Next = NULL;                           //   after creating a head node, should make it point to NULL
 	List ptrl_tail = ptrl_head;
 	for (int i = 1; i < 5; i++) {
 		List ptrl_new = (List)malloc(sizeof(L));
