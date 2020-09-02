@@ -1,0 +1,54 @@
+#include <stdio.h>
+#include <time.h>
+#define M 10000
+
+typedef struct LNode List;
+
+struct LNode {
+	int Data;
+	List* Next;
+};
+
+void PrintLots(List* L, List* P);
+
+int main() {
+	clock_t start, finish;
+	List* ptrl_P = (List*)malloc(sizeof(List));
+	List* ptrl_L = (List*)malloc(sizeof(List));
+	List* ptrl_tail1 = ptrl_L;
+	List* ptrl_tail2 = ptrl_P;
+	ptrl_tail1->Next = NULL;
+	ptrl_tail2->Next = NULL;
+
+	for (int i = 0; i < M; i++) {
+		List* ptrl_new1 = (List*)malloc(sizeof(List));
+		ptrl_new1->Next = NULL;
+		ptrl_new1->Data = i;
+		ptrl_tail1->Next = ptrl_new1;
+		ptrl_tail1 = ptrl_new1;
+	}
+
+	for (int j = 500; j >1; j--) {
+		List* ptrl_new2 = (List*)malloc(sizeof(List));
+		ptrl_new2->Next = NULL;
+		ptrl_new2->Data = M / j;
+		ptrl_tail2->Next = ptrl_new2;
+		ptrl_tail2 = ptrl_new2;
+	}
+	start = clock();
+	PrintLots(ptrl_L, ptrl_P);
+	finish = clock();
+	printf("The program run %lf ms", (double)(finish - start));
+}
+
+void PrintLots(List* L, List* P) {
+	int tem = 1;
+	while (P != NULL && L != NULL) {
+		L = L->Next;
+		if (tem == P->Data) {
+			printf("The %d element of linked list is %d\n", tem, L->Data);
+			P = P->Next;
+		}
+		tem++;
+	}
+}
