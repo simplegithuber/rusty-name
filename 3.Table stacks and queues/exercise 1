@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct LNode* List;
+
+struct LNode {
+	int Data;
+	List Next;
+};
+
+struct LNode L;
+
+                                                      //  creat a linked list
+List creatlist() {  
+	List ptrl_head = (List)malloc(sizeof(L));
+	ptrl_head->Next = NULL;                           //   after creating a new node, should make it point to NULL
+	List ptrl_tail = ptrl_head;
+	for (int i = 1; i < 5; i++) {
+		List ptrl_new = (List)malloc(sizeof(L));
+		ptrl_new->Next = NULL;
+		ptrl_new->Data = i;
+		ptrl_tail->Next = ptrl_new;
+		ptrl_tail = ptrl_new;
+	}
+	return ptrl_head;
+}
+int main() {
+	List ptrl = creatlist();
+	ptrl = ptrl->Next;
+	for (int i = 1; i < 5; i++) {
+		printf("%d\n", ptrl->Data);
+		ptrl = ptrl->Next;
+		if (ptrl == NULL)
+			break;
+	}
+	return 0;
+}
