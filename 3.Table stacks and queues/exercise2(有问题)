@@ -28,10 +28,10 @@ int main() {
 		ptrl_tail1 = ptrl_new1;
 	}
 
-	for (int j = 500; j >1; j--) {
+	for (int j = 0; j < 1000; j++) {
 		List* ptrl_new2 = (List*)malloc(sizeof(List));
 		ptrl_new2->Next = NULL;
-		ptrl_new2->Data = M / j;
+		ptrl_new2->Data = 3 * j;
 		ptrl_tail2->Next = ptrl_new2;
 		ptrl_tail2 = ptrl_new2;
 	}
@@ -43,6 +43,7 @@ int main() {
 
 void PrintLots(List* L, List* P) {
 	int tem = 1;
+	P = P->Next;
 	while (P != NULL && L != NULL) {
 		L = L->Next;
 		if (tem == P->Data) {
